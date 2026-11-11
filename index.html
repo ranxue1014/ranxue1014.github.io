@@ -693,8 +693,8 @@ select option{background:#0e1512;color:#d6e2da}
 
     <div class="hero-stats">
       <span class="stat-pill"><b class="mono-num" data-count="10">10</b> 年数据领域</span>
-      <span class="stat-pill"><b class="mono-num" data-count="40" data-suffix="+">40+</b> 份方案交付</span>
-      <span class="stat-pill"><b class="mono-num" data-count="6">6</b> 个行业</span>
+      <span class="stat-pill"><b class="mono-num" data-count="4">4</b> 条 Agent 流水线</span>
+      <span class="stat-pill"><b class="mono-num" data-count="7">7</b> 个在档项目</span>
       <span class="stat-pill">近期节奏 ≈ <b>每周 1 篇</b> 手记</span>
     </div>
 
@@ -704,7 +704,7 @@ select option{background:#0e1512;color:#d6e2da}
         <b>当前主攻</b> · 媒体行业数据中台
       </div>
       <div class="bot">
-        <span class="big">数据不出域</span> · <span>隐私计算 / 国产化适配 / 分层分域建模</span> · <a href="#work">→ 查看项目档案</a>
+        <span class="big">数据不出域</span> · <span>隐私计算 / 自主可控适配 / 分层分域建模</span> · <a href="#work">→ 查看项目档案</a>
       </div>
     </div>
   </div>
@@ -761,8 +761,8 @@ select option{background:#0e1512;color:#d6e2da}
 
     <div class="charts">
       <div class="chart rv">
-        <h3>行业分布 <span class="hintk">按方案数量 · 点击高亮</span></h3>
-        <div class="dist-bar" id="distBar" role="img" aria-label="行业分布堆叠条形图"></div>
+        <h3>行业经验比重 <span class="hintk">相对权重 · 非客户数 · 点击高亮</span></h3>
+        <div class="dist-bar" id="distBar" role="img" aria-label="行业经验比重堆叠条形图"></div>
         <div class="dist-legend" id="distLegend"></div>
       </div>
       <div class="chart rv">
@@ -896,12 +896,11 @@ select option{background:#0e1512;color:#d6e2da}
       <div class="ccard rv">
         <h3>❯ contact --list</h3>
         <div class="crow"><span class="k">邮箱</span><span class="v" id="cEmail">ranxue.gc@alibaba-inc.com</span><button class="cp" data-copy="ranxue.gc@alibaba-inc.com">复制</button></div>
-        <div class="crow"><span class="k">微信</span><span class="v" id="cWechat">qq493773610</span><button class="cp" data-copy="qq493773610">复制</button></div>
         <div class="crow"><span class="k">城市</span><span class="v">杭州 · 浙江 · GMT+8</span><button class="cp" data-copy="杭州 · GMT+8">复制</button></div>
         <div class="crow"><span class="k">响应</span><span class="v">工作日 24 小时内</span><span class="chip" data-kind="ok">在线</span></div>
         <div class="avail">
           <b>可以聊什么：</b>数据中台选型与预算拆解、敏感数据不出域的落地路径、BI 语义层怎么建才不返工、
-          售前方案与控标参数怎么写、把重复的文档工作交给 Agent。
+          售前方案与评分项响应怎么写、把重复的文档工作交给 Agent。
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:13px">
           <button class="btn" id="vcardBtn">
@@ -1022,9 +1021,6 @@ select option{background:#0e1512;color:#d6e2da}
   <div class="sep" aria-hidden="true"></div>
   <button id="railMail" title="发邮件" aria-label="发邮件">
     <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg>
-  </button>
-  <button id="railWechat" title="复制微信号" aria-label="复制微信号">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4C5.1 4 2 6.6 2 9.8c0 1.8 1 3.4 2.6 4.5L4 17l2.9-1.5c.7.2 1.4.3 2.1.3h.6"/><path d="M22 15.2c0-2.7-2.6-4.9-5.8-4.9s-5.8 2.2-5.8 4.9 2.6 4.9 5.8 4.9c.6 0 1.2-.1 1.8-.3L20.5 21l-.5-2c1.2-.9 2-2.3 2-3.8z"/></svg>
   </button>
   <div class="sep" aria-hidden="true"></div>
   <button id="railTop" title="回到顶部" aria-label="回到顶部">
@@ -1167,15 +1163,15 @@ const PROFILE={
   name:'燃雪·郭超', handle:'ranxue', city:'杭州', tz:'GMT+8',
   role:'售前解决方案架构师',
   focus:'数据中台 / 智能 BI / AI Agent',
-  email:'ranxue.gc@alibaba-inc.com', wechat:'qq493773610',
+  email:'ranxue.gc@alibaba-inc.com',
   since:2016
 };
 
 const KPIS=[
-  {n:'40+',k:'方案 / 需求书交付'},
-  {n:'6',k:'覆盖行业'},
-  {n:'12',k:'主力产品栈'},
-  {n:'48h',k:'首版方案响应'}
+  {n:'3',k:'在跑售前 / 可研主线'},
+  {n:'4',k:'Agent 流水线'},
+  {n:'120',k:'问数回归题集'},
+  {n:'0',k:'素材上传字节'}
 ];
 
 const SKILLS=[
@@ -1186,45 +1182,45 @@ const SKILLS=[
   {id:'gov',name:'数据治理与安全合规',pct:86,stack:'L1–L4 分级 · 行级权限 · 血缘审计',
    desc:'分级分类、去标识化、隐私计算与安全撞库；敏感数据不出域的边界设计，以及能拿去验收的证据清单。'},
   {id:'engine',name:'实时 / 离线底座',pct:82,stack:'MaxCompute · Hologres · Flink · StarRocks',
-   desc:'云上离线加实时、云下 MPP 的混合底座；国产化 CPU / OS 适配与外部注册集群调度的可行性验证。'},
+   desc:'云上离线加实时、云下 MPP 的混合底座；自主可控 CPU / OS 适配与外部注册集群调度的可行性验证。'},
   {id:'ai',name:'AI Agent 与自动化',pct:78,stack:'LLM · Skill / MCP · 文档流水线',
    desc:'把重复的文档与校验工作变成可复用技能：需求书生成、禁用词校验、报价拆解、跨源资料检索。'},
-  {id:'presales',name:'方案与投标',pct:94,stack:'可研 · 技术需求书 · 控标参数',
+  {id:'presales',name:'方案与投标',pct:94,stack:'可研 · 技术需求书 · 评分项响应',
    desc:'业务场景—产品能力—数据输入三层结构；投资估算、功能清单拆条、评标风险与验收证据前置。'}
 ];
 
 const INDUSTRIES=[
-  {name:'媒体与广电',n:12,c:'#41ff8b',ang:'45deg'},
-  {name:'通信与终端',n:9, c:'#ffb454',ang:'-45deg'},
-  {name:'政企与公共',n:7, c:'#45e0ff',ang:'90deg'},
-  {name:'零售与消费',n:5, c:'#a78bfa',ang:'0deg'},
-  {name:'制造与供应链',n:4,c:'#ff6fd8',ang:'135deg'},
-  {name:'金融与保险',n:3, c:'#ff5f56',ang:'-90deg'}
+  {name:'媒体与广电',n:30,c:'#41ff8b',ang:'45deg'},
+  {name:'通信与终端',n:22,c:'#ffb454',ang:'-45deg'},
+  {name:'政企与公共',n:18,c:'#45e0ff',ang:'90deg'},
+  {name:'零售与消费',n:13,c:'#a78bfa',ang:'0deg'},
+  {name:'制造与供应链',n:10,c:'#ff6fd8',ang:'135deg'},
+  {name:'金融与保险',n:7, c:'#ff5f56',ang:'-90deg'}
 ];
 
 const PROJECTS=[
   {
-    id:'p1',idx:1,title:'媒体集团数据中台子系统 · 可研与数据底座',
-    client:'省级广电集团',year:2026,status:'进行中',kind:'warn',scale:2000,scaleLabel:'千万级',
+    id:'p1',idx:1,title:'媒体集团数据底座 · 可行性研究',
+    client:'某大型媒体集团',year:2026,status:'进行中',kind:'warn',scale:2000,scaleLabel:'可研阶段',
     tags:['数据中台','安全合规','方案投标'],
-    summary:'五大平台 + 四类应用的融媒数据子系统。六大数据域、云上云下混合底座，敏感数据本地执行、只交换元数据。',
-    background:'客户要在融媒体系内新建数据中台子系统，同时满足两个互相拉扯的诉求：一边要用云上成熟的计算与治理产品，一边要求「人、财、物、广告」四类敏感数据不出内网，并且底座要跑在国产 CPU 与操作系统上。可行性研究阶段必须先把这条边界画清楚，否则后面每一版方案都会推倒重来。',
-    approach:'先把业务架构拉成一条线：数据来源 → 数据湖 → 数据治理 → 核心应用 → 能力组件 → AI 赋能 → 安全与接口。数据域按用户 / 经营 / 生产 / 传播 / 财务 / 运管六域切分，指标按 OneData / OneModel 组织，BI 只做资产接入与语义建模，不重复造口径。底座做双形态：云上用离线数仓加实时引擎，云下用本地 MPP 作为安全执行节点，通过治理平台的外部注册集群统一调度，两侧只交换元数据，任务在数据所在地执行。',
+    summary:'为融媒体系规划数据底座：云上治理 + 本地安全执行节点的混合形态，敏感数据留在本地、只交换元数据。',
+    background:'客户希望复用云上成熟的计算与治理能力，同时要求一部分敏感数据不出内网，并对底座的自主可控有硬性要求。可行性研究阶段必须先把「数据在哪算、两侧交换什么」这条边界画清楚，否则后续每一版方案都会推倒重来。',
+    approach:'先把业务架构拉成一条线：数据来源 → 数据湖 → 数据治理 → 核心应用 → 能力组件 → AI 赋能 → 安全与接口。指标按统一方法论组织，BI 只做资产接入与语义建模，不重复造口径。底座做双形态：云上用离线数仓加实时引擎，云下用本地 MPP 作为安全执行节点，通过治理平台的外部注册集群统一调度，两侧只交换元数据，任务在数据所在地执行。',
     results:[
       '把「敏感数据不出域」从一句口号拆成了可验收的条款：数据分级、执行位置、元数据交互范围、审计留痕，逐条对应证据。',
-      '识别并在可研阶段就暴露了产品部署形态与国产化要求的冲突，给出本地 MPP + 外部注册集群的替代路线与验证清单。',
-      '三方标签通过安全撞库补充画像，全链路去标识化，隐私计算与合规写进方案而不是附录。',
-      '数据服务边界写死在产品实际能力内：向导 / 脚本 SQL API、AK/SK 鉴权、行列级权限、限流与监控告警，不承诺超纲能力。'
+      '在可研阶段就暴露了部署形态与自主可控要求之间的冲突，给出本地 MPP + 外部注册集群的替代路线与验证清单。',
+      '外部标签补充画像走安全撞库与去标识化，隐私计算与合规写进方案而不是附录。',
+      '数据服务边界写死在产品实际能力内：SQL API、鉴权、行列级权限、限流与监控告警，不承诺超纲能力。'
     ],
-    stack:['Dataphin','Quick BI','Quick Audience','MaxCompute','Hologres','Flink','StarRocks','隐私计算'],
-    metrics:[{n:'6',k:'数据域'},{n:'5+4',k:'平台 + 应用'},{n:'L1–L4',k:'数据分级'}]
+    stack:['数据治理平台','智能 BI','离线数仓','实时引擎','本地 MPP','隐私计算'],
+    metrics:[{n:'双形态',k:'云上 + 云下'},{n:'元数据',k:'仅交换内容'},{n:'L1–L4',k:'数据分级'}]
   },
   {
-    id:'p2',idx:2,title:'通信终端厂商 · 年度运维服务方案',
-    client:'头部通信终端厂商',year:2025,status:'已交付',kind:'ok',scale:900,scaleLabel:'百万级',
+    id:'p2',idx:2,title:'通信终端行业 · 年度运维服务方案',
+    client:'某通信终端企业',year:2025,status:'已交付',kind:'ok',scale:900,scaleLabel:'运维投标',
     tags:['方案投标','数据中台'],
     summary:'面向已有数据平台的年度运维投标：SLA 分层、值班与应急机制、容量与成本治理，以及可量化的考核口径。',
-    background:'客户的平台已经上线两年，真正的问题不是「建不建」，而是「怎么持续跑好」。上一轮运维合同的考核指标写得很虚，双方对「故障」的定义都不一致，续签时必须先把口径谈拢。',
+    background:'客户的平台已经稳定运行一段时间，真正的问题不是「建不建」，而是「怎么持续跑好」。运维类合同最容易在「什么算故障、怎么统计」上产生分歧，续签前必须先把口径谈拢。',
     approach:'把运维拆成三层来写：基础设施与集群可用性、数据任务与产出时效、业务侧数据可用性。每层给出明确的 SLA 定义、统计窗口、免责边界与考核公式；再配上分级响应机制、变更流程与季度容量复盘。方案里前置了监控大盘与巡检报告的样例，让评委看得见交付物长什么样。',
     results:[
       'SLA 从「尽量保障」变成三条可计算的分层指标，考核争议在合同阶段就消除。',
@@ -1239,25 +1235,25 @@ const PROJECTS=[
     client:'内部 PoC',year:2026,status:'进行中',kind:'warn',scale:300,scaleLabel:'PoC',
     tags:['智能BI','AI Agent'],
     summary:'让业务用自然语言直接问数。真正的难点不在模型，在语义层：同义词、口径、维度别名和权限。',
-    background:'第一版 PoC 的准确率只有六成出头，业务问「上个月华东的活跃」，模型不知道「活跃」对应哪个指标、「华东」是哪几个省。问题几乎全部集中在语义层，而不是大模型本身。',
+    background:'第一版 PoC 的准确率不理想，业务问「上个月华东的活跃」，模型不知道「活跃」对应哪个指标、「华东」是哪几个省。问题几乎全部集中在语义层，而不是大模型本身。',
     approach:'把精力从提示词挪到建模：为每个指标补齐业务同义词与口径说明，为维度建立别名与枚举映射，把常用问法沉淀成示例问答对；同时把行级权限接进问数链路，保证不同角色问同一句话得到各自有权看到的结果。最后建立一套固定回归题集，每次改动都跑一遍。',
     results:[
-      '固定题集准确率从 61% 提升到 84%，提升几乎全部来自语义层补全而非换模型。',
+      '固定回归题集上的准确率显著提升，提升几乎全部来自语义层补全而非换模型。',
       '权限接入后，问数结果与报表结果逐条对齐，消除了「两个数字」的信任问题。',
       '沉淀出一套可复制的语义层补全清单，后续项目可以直接套用。'
     ],
     stack:['Quick BI','语义建模','同义词词典','行级权限','回归题集'],
-    metrics:[{n:'61→84%',k:'问数准确率'},{n:'120',k:'回归题集'},{n:'0',k:'越权返回'}]
+    metrics:[{n:'语义层',k:'提升主因'},{n:'120',k:'回归题集'},{n:'0',k:'越权返回'}]
   },
   {
     id:'p4',idx:4,title:'销售运营数据看板体系',
-    client:'大型 SaaS 团队',year:2025,status:'已交付',kind:'ok',scale:500,scaleLabel:'中型',
+    client:'某 SaaS 销售团队',year:2025,status:'已交付',kind:'ok',scale:500,scaleLabel:'中型',
     tags:['智能BI','数据中台'],
     summary:'把散在 CRM、表格和周报里的业绩数据收成一套看板：行业分类、完成情况、趋势与异常，一屏说清。',
-    background:'销售管理层的周会靠人工拼表，同一个「完成率」在不同部门有三种算法。每次开会前半小时都在对数，而不是讨论怎么打单。',
+    background:'销售管理层的周会靠人工拼表，同一个「完成率」在不同部门口径不一。开会前大量时间花在对数，而不是讨论业务。',
     approach:'先做口径仲裁：把完成率、回款、新签、续费统一定义并落到语义层，再按行业 / 区域 / 产品三个维度建汇总模型。看板分三层：管理层一屏看全局，区域经理看自己的盘子，一线看自己的单子。异常项用规则自动打标，周会直接从异常清单开始。',
     results:[
-      '周会前的对数时间从半小时压到接近零，会议直接讨论异常。',
+      '周会前的对数时间大幅压缩，会议直接讨论异常。',
       '完成率口径统一后，跨部门数据第一次能直接相加。',
       '异常自动打标让跟进从「翻表找问题」变成「处理待办」。'
     ],
@@ -1312,11 +1308,11 @@ const PROJECTS=[
 ];
 
 const RADAR=[
-  {d:'2026-11-10T10:20:00+08:00',kind:'SHIP',  text:'完成媒体数据底座国产化适配的可行性验证清单',sub:'国产 CPU / OS × 外部注册集群调度 · 12 项验证点'},
-  {d:'2026-11-08T16:05:00+08:00',kind:'SIGNAL',text:'智能问数补齐语义层同义词后，固定题集准确率 61% → 84%',sub:'提升几乎全部来自建模，不是换模型'},
+  {d:'2026-11-10T10:20:00+08:00',kind:'SHIP',  text:'完成媒体数据底座自主可控适配的可行性验证清单',sub:'自主可控 × 外部注册集群调度 · 验证清单'},
+  {d:'2026-11-08T16:05:00+08:00',kind:'SIGNAL',text:'智能问数补齐语义层同义词后，固定题集准确率显著提升',sub:'提升几乎全部来自建模，不是换模型'},
   {d:'2026-11-05T21:40:00+08:00',kind:'NOTE',  text:'发布手记《敏感数据不出域，到底怎么落》',sub:'把口号拆成可验收条款的四步法',note:1},
   {d:'2026-11-02T14:12:00+08:00',kind:'SHIP',  text:'售前文档流水线 v3 上线：Excel → Markdown → docx 全自动',sub:'交付前强制跑禁用词与品牌词双向校验'},
-  {d:'2026-10-28T19:30:00+08:00',kind:'TALK',  text:'内部分享《售前方案的三层结构》',sub:'业务场景 — 产品能力 — 数据输入 · 42 人'},
+  {d:'2026-10-28T19:30:00+08:00',kind:'TALK',  text:'内部分享《售前方案的三层结构》',sub:'业务场景 — 产品能力 — 数据输入'},
   {d:'2026-10-21T11:08:00+08:00',kind:'SIGNAL',text:'本地 MPP 经外部注册集群调度跑通，敏感数据留在内网',sub:'两侧只交换元数据，任务在数据所在地执行'},
   {d:'2026-10-14T20:55:00+08:00',kind:'NOTE',  text:'发布手记《把禁用词校验做成流水线的一部分》',sub:'人眼检查一定会漏，脚本不会',note:3},
   {d:'2026-10-06T09:45:00+08:00',kind:'SHIP',  text:'数据服务 API 的行 / 列级权限模板沉淀为复用清单',sub:'同时写明「不承诺什么」，避免售前说过头'}
@@ -1325,7 +1321,7 @@ const RADAR_KINDS={SHIP:'ok',SIGNAL:'info',NOTE:'violet',TALK:'warn'};
 
 const TIMELINE=[
   {yr:'2024 — 至今',role:'售前解决方案架构师',org:'数据智能产品厂商 · 杭州',old:false,
-   desc:'负责数据中台、智能 BI 与增长营销方向的售前方案：可行性研究、技术需求书、控标参数与投标答辩。同时把重复的文档工作做成 Agent 流水线。',
+   desc:'负责数据中台、智能 BI 与增长营销方向的售前方案：可行性研究、技术需求书、评分项响应与投标答辩。同时把重复的文档工作做成 Agent 流水线。',
    tags:['可行性研究','技术需求书','混合底座','Agent 流水线']},
   {yr:'2022 — 2024',role:'高级数据顾问',org:'数据中台交付团队',old:false,
    desc:'从售前走进交付：数据域划分、分层建模、指标口径仲裁、数据服务与权限边界。开始明白方案里写下的每一句话，最后都要有人去实现。',
@@ -1345,7 +1341,7 @@ const NOTES=[
   {id:1,date:'2026-11-05',read:'6 min',title:'敏感数据不出域，到底怎么落',tags:['安全合规','数据中台'],
    body:[
      '「敏感数据不出域」这句话，写在方案里很容易，落到系统上全是细节。我的做法是把它拆成四个能验收的问题：<strong>哪些数据算敏感、任务在哪里执行、两侧交换什么、出事怎么查。</strong>',
-     '第一步是分级，而不是先谈架构。把「人、财、物、广告」这类默认敏感的范围先圈出来，其余默认可以在云上处理。范围一旦模糊，后面所有的技术选型都会反复摇摆。第二步是执行位置：本地底座作为安全执行节点，云上治理平台通过外部注册集群下发调度，任务在数据所在地跑，<strong>两侧只交换元数据</strong>。第三步把交换内容写死——表结构、任务状态、血缘，不含明细数据。第四步是留痕：分级标签、行级权限表达式、审计日志，每一项都要能拿出截图或导出文件作为验收证据。',
+     '第一步是分级，而不是先谈架构。把默认敏感的业务数据范围先圈出来，其余默认可以在云上处理。范围一旦模糊，后面所有的技术选型都会反复摇摆。第二步是执行位置：本地底座作为安全执行节点，云上治理平台通过外部注册集群下发调度，任务在数据所在地跑，<strong>两侧只交换元数据</strong>。第三步把交换内容写死——表结构、任务状态、血缘，不含明细数据。第四步是留痕：分级标签、行级权限表达式、审计日志，每一项都要能拿出截图或导出文件作为验收证据。',
      '<span class="quote">经验之谈：如果一条安全要求写不出对应的验收证据，那它就还不是需求，只是愿望。在售前阶段把证据清单列出来，交付阶段会少掉一半的争吵。</span>'
    ]},
   {id:2,date:'2026-10-28',read:'5 min',title:'售前方案的三层结构：业务场景 — 产品能力 — 数据输入',tags:['方案投标','方法论'],
@@ -1476,10 +1472,10 @@ function animateSkill(el){
 const distTotal=INDUSTRIES.reduce((a,b)=>a+b.n,0);
 $('#distBar').innerHTML=INDUSTRIES.map((d,i)=>
   '<button type="button" data-i="'+i+'" style="background:'+d.c+';--ang:'+d.ang+'" '+
-  'title="'+esc(d.name)+' · '+d.n+' 份 · '+Math.round(d.n/distTotal*100)+'%" '+
-  'aria-label="'+esc(d.name)+' '+d.n+' 份，占 '+Math.round(d.n/distTotal*100)+'%"><span>'+Math.round(d.n/distTotal*100)+'%</span></button>').join('');
+  'title="'+esc(d.name)+' · 经验比重 '+Math.round(d.n/distTotal*100)+'%" '+
+  'aria-label="'+esc(d.name)+' 经验比重 '+Math.round(d.n/distTotal*100)+'%"><span>'+Math.round(d.n/distTotal*100)+'%</span></button>').join('');
 $('#distLegend').innerHTML=INDUSTRIES.map((d,i)=>
-  '<button type="button" data-i="'+i+'"><i style="background:'+d.c+'"></i>'+esc(d.name)+'<b class="mono-num">'+d.n+'</b></button>').join('');
+  '<button type="button" data-i="'+i+'"><i style="background:'+d.c+'"></i>'+esc(d.name)+'<b class="mono-num">'+Math.round(d.n/distTotal*100)+'%</b></button>').join('');
 function growDist(){
   $$('#distBar button').forEach((b,i)=>{ b.style.flexGrow=INDUSTRIES[i].n; });
 }
@@ -1494,7 +1490,7 @@ $('#distLegend').addEventListener('mouseleave',()=>hotDist(null));
 $('#distLegend').addEventListener('click',e=>{
   const b=e.target.closest('button'); if(!b) return;
   const d=INDUSTRIES[+b.dataset.i];
-  Sound.tick(); toast(d.name+'：'+d.n+' 份方案，占 '+Math.round(d.n/distTotal*100)+'%');
+  Sound.tick(); toast(d.name+'：经验比重 '+Math.round(d.n/distTotal*100)+'%');
 });
 
 /* activity heatmap — deterministic, 53 weeks */
@@ -1927,7 +1923,6 @@ const COMMANDS={
   contact:{desc:'联系方式',run(){
     p('联系方式','ok'); gap();
     line('  '+col('邮箱',58,'muted')+'<span class="info">'+esc(PROFILE.email)+'</span>');
-    line('  '+col('微信',58,'muted')+esc(PROFILE.wechat));
     line('  '+col('城市',58,'muted')+esc(PROFILE.city+' · '+PROFILE.tz));
     line('  '+col('响应',58,'muted')+'工作日 24 小时内');
     gap(); p('输入 resume 下载简历，或直接去页面底部的表单留言。','muted');
@@ -2111,7 +2106,7 @@ function resumeText(){
   L.push('');
   L.push('- 方向：'+PROFILE.focus);
   L.push('- 常驻：'+PROFILE.city+' · '+PROFILE.tz);
-  L.push('- 邮箱：'+PROFILE.email+' ｜ 微信：'+PROFILE.wechat);
+  L.push('- 邮箱：'+PROFILE.email);
   L.push('- 站点：ranxue.sh');
   L.push('');
   L.push('## 概述');
@@ -2152,7 +2147,7 @@ function resumeText(){
   L.push('---');
   L.push('');
   L.push('导出自 ranxue.sh · '+new Date().toLocaleString('zh-CN',{hour12:false}));
-  L.push('客户名称已脱敏，不含任何客户内部数据、报价与调研数字。能力百分比为个人自评，不构成服务承诺。');
+  L.push('客户名称、内部性能基线与经营数字已脱敏，不含任何客户内部数据、报价与调研数字。能力百分比为个人自评，不构成服务承诺。');
   return L.join('\n');
 }
 function doResume(){ download('燃雪·郭超-简历.md',resumeText(),'text/markdown'); Sound.ok(); toast('简历已导出为 Markdown'); }
@@ -2162,7 +2157,7 @@ $('#railResume').addEventListener('click',doResume);
 $('#vcardBtn').addEventListener('click',()=>{
   const v=['BEGIN:VCARD','VERSION:3.0','N:郭;超;;;','FN:'+PROFILE.name,'NICKNAME:燃雪',
     'TITLE:'+PROFILE.role,'ORG:数据智能解决方案','EMAIL;type=INTERNET;type=WORK:'+PROFILE.email,
-    'ADR;type=WORK:;;;杭州;浙江;;中国','NOTE:'+PROFILE.focus+' · 微信 '+PROFILE.wechat,
+    'ADR;type=WORK:;;;杭州;浙江;;中国','NOTE:'+PROFILE.focus,
     'URL:https://ranxue.sh','REV:'+new Date().toISOString(),'END:VCARD'].join('\r\n');
   download('燃雪·郭超.vcf',v,'text/vcard'); Sound.ok(); toast('名片已下载，可直接导入通讯录');
 });
@@ -2178,9 +2173,6 @@ $('#railMail').addEventListener('click',()=>{
   setTimeout(()=>{ if(!form.hidden) $('#cName').focus(); },motionOK()?450:0);
   toast('在表单里留言，或直接发信到 '+PROFILE.email);
   Sound.tick();
-});
-$('#railWechat').addEventListener('click',()=>{
-  copyText(PROFILE.wechat).then(ok=>{ ok?toast('微信号已复制：'+PROFILE.wechat):toast('复制失败：'+PROFILE.wechat,'warn'); if(ok) Sound.ok(); });
 });
 $('#railTop').addEventListener('click',()=>{ window.scrollTo({top:0,behavior:motionOK()?'smooth':'auto'}); Sound.tick(); });
 
