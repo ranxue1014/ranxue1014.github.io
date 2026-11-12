@@ -383,6 +383,53 @@ input[type=range]::-moz-range-thumb{width:12px;height:12px;border:0;border-radiu
 .heat-scale i{width:10px;height:10px;border-radius:2px;display:block}
 #heatRead{color:var(--dim)}
 
+/* ---------- panorama / project atlas ---------- */
+.pano{border:1px solid var(--line);border-radius:12px;background:linear-gradient(180deg,var(--panel2),var(--panel));
+  padding:18px 18px 14px;position:relative;overflow:hidden}
+.pano::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.55;
+  background-image:linear-gradient(rgba(var(--acc),.045) 1px,transparent 1px),linear-gradient(90deg,rgba(var(--acc),.045) 1px,transparent 1px);
+  background-size:26px 26px;-webkit-mask-image:radial-gradient(125% 92% at 50% 0%,#000 38%,transparent 100%);
+  mask-image:radial-gradient(125% 92% at 50% 0%,#000 38%,transparent 100%)}
+.pano-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;position:relative;z-index:1;margin-bottom:18px}
+.pano-stat{border:1px solid var(--line);border-radius:10px;background:var(--ink);padding:12px 14px;position:relative;overflow:hidden}
+.pano-stat::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--sc,var(--p1));box-shadow:0 0 12px var(--sc,var(--p1))}
+.pano-stat .n{font-size:30px;font-weight:700;line-height:1.1;color:var(--sc,var(--p1));text-shadow:0 0 calc(20px*var(--glow-k)) rgba(var(--acc),.28)}
+.pano-stat .k{font-size:11px;color:var(--faint);letter-spacing:.05em;margin-top:3px}
+.pano-stat:nth-child(1){--sc:var(--p1)}
+.pano-stat:nth-child(2){--sc:var(--amber)}
+.pano-stat:nth-child(3){--sc:var(--cyan)}
+.pano-stat:nth-child(4){--sc:var(--violet)}
+.pano-chart{position:relative;z-index:1}
+.pano-rows{display:flex;flex-direction:column;gap:6px}
+.pano-row{display:grid;grid-template-columns:96px 1fr 46px;align-items:center;gap:12px;
+  padding:5px 8px;border-radius:7px;cursor:default;transition:background .15s;outline:none}
+.pano-row:hover,.pano-row[data-hot="true"],.pano-row:focus-visible{background:rgba(var(--acc),.07)}
+.pano-name{font-size:12px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .15s}
+.pano-row:hover .pano-name,.pano-row[data-hot="true"] .pano-name,.pano-row:focus-visible .pano-name{color:var(--fg)}
+.pano-track{height:15px;border-radius:4px;background:rgba(var(--acc),.07);border:1px solid var(--line);overflow:hidden;position:relative}
+.pano-fill{display:block;height:100%;width:0;border-radius:3px;opacity:var(--i,1);position:relative;
+  background:linear-gradient(90deg,rgba(var(--acc),.5),var(--p1));
+  box-shadow:0 0 calc(10px*var(--glow-k)) rgba(var(--acc),.4);
+  transition:width .9s cubic-bezier(.22,.7,.3,1)}
+.pano-fill::after{content:"";position:absolute;inset:0;opacity:.25;
+  background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.5) 0 2px,transparent 2px 5px)}
+.pano-fill::before{content:"";position:absolute;right:0;top:0;bottom:0;width:2px;background:var(--fg);opacity:.85;box-shadow:0 0 8px var(--p1)}
+.pano.go .pano-fill{width:var(--w)}
+.pano-n{font-size:13px;font-weight:700;color:var(--p1);text-align:right;text-shadow:0 0 calc(12px*var(--glow-k)) rgba(var(--acc),.3)}
+.pano-read{margin-top:12px;font-size:11px;color:var(--dim);min-height:18px;letter-spacing:.02em}
+.pano-read b{color:var(--p1)}
+.pano-foot{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:11px;color:var(--faint);
+  display:flex;gap:8px;flex-wrap:wrap;align-items:center;position:relative;z-index:1}
+.pano-foot a{color:var(--p1);text-decoration:none}
+.pano-foot a:hover{text-shadow:var(--glow)}
+html[data-motion="off"] .pano-fill{transition:none}
+@media(max-width:640px){
+  .pano-stats{grid-template-columns:repeat(2,1fr)}
+  .pano-stat .n{font-size:24px}
+  .pano-row{grid-template-columns:78px 1fr 38px;gap:8px}
+  .pano-name{font-size:11px}
+}
+
 /* ---------- work ---------- */
 .toolbar{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-bottom:15px}
 .search{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);
@@ -632,6 +679,7 @@ select option{background:#0e1512;color:#d6e2da}
     <nav class="nav-links" aria-label="主导航">
       <a href="#terminal" data-nav="terminal">终端</a>
       <a href="#skills" data-nav="skills">能力</a>
+      <a href="#panorama" data-nav="panorama">全景</a>
       <a href="#work" data-nav="work">项目</a>
       <a href="#radar" data-nav="radar">雷达</a>
       <a href="#notes" data-nav="notes">手记</a>
@@ -678,8 +726,8 @@ select option{background:#0e1512;color:#d6e2da}
     <div class="hero-stats">
       <span class="stat-pill"><b class="mono-num" data-count="10">10</b> 年数据领域</span>
       <span class="stat-pill"><b class="mono-num" data-count="4">4</b> 条 Agent 流水线</span>
-      <span class="stat-pill"><b class="mono-num" data-count="7">7</b> 个在档项目</span>
-      <span class="stat-pill">近期节奏 ≈ <b>每周 1 篇</b> 手记</span>
+      <span class="stat-pill"><b class="mono-num" data-count="72" data-suffix="+">72+</b> 个在档项目</span>
+      <span class="stat-pill">跨 <b>11</b> 行业 · <b>5</b> 年纵深</span>
     </div>
 
     <div class="alertbox">
@@ -772,12 +820,36 @@ select option{background:#0e1512;color:#d6e2da}
   </div>
 </section>
 
+<!-- ============ PANORAMA ============ -->
+<section class="sec" id="panorama" aria-labelledby="panoTitle">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="panoTitle">项目经验全景</h2>
+      <span class="sub">真实归档 · 客户名已脱敏 · 按行业归类</span>
+      <span class="spacer"></span>
+      <button class="act" data-cmd="atlas">❯ 在终端里看</button>
+    </div>
+    <p class="lede">五年间真实交付与参与的项目，按行业归类的广度全景。再往下的「项目档案」是其中可公开深写的旗舰案例。所有客户名称已匿名化，只呈现行业、体量与时间——不点名、不含任何客户内部数据。</p>
+    <div class="pano rv" id="pano">
+      <div class="pano-stats" id="panoStats"></div>
+      <div class="pano-chart">
+        <div class="pano-rows" id="panoRows" role="img"></div>
+        <div class="pano-read" id="panoRead" aria-live="polite"></div>
+      </div>
+      <div class="pano-foot">
+        <span>口径：本机「项目材料」归档，一个项目文件夹计一条；部分行业下还有子项目，实际更多。</span>
+        <a href="#work">→ 看旗舰案例深写</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ WORK ============ -->
 <section class="sec" id="work" aria-labelledby="workTitle">
   <div class="wrap">
     <div class="sec-head">
       <h2 id="workTitle">项目档案</h2>
-      <span class="sub">客户名已脱敏 · 只写可公开的部分</span>
+      <span class="sub">72+ 项目中的旗舰案例 · 客户名已脱敏</span>
       <span class="spacer"></span>
       <button class="act" data-cmd="projects">❯ 在终端里看</button>
     </div>
@@ -1139,7 +1211,7 @@ const PROFILE={
 };
 
 const KPIS=[
-  {n:'3',k:'在跑售前 / 可研主线'},
+  {n:'72+',k:'在档项目 · 11 行业'},
   {n:'4',k:'Agent 流水线'},
   {n:'94',k:'场调研听记归档'},
   {n:'0',k:'素材上传字节'}
@@ -1161,12 +1233,12 @@ const SKILLS=[
 ];
 
 const INDUSTRIES=[
-  {name:'媒体与广电',n:48,c:'#41ff8b',ang:'45deg'},
-  {name:'通信与终端',n:24,c:'#ffb454',ang:'-45deg'},
-  {name:'政企与公共',n:12,c:'#45e0ff',ang:'90deg'},
-  {name:'零售与消费',n:7,c:'#a78bfa',ang:'0deg'},
-  {name:'制造与供应链',n:5,c:'#ff6fd8',ang:'135deg'},
-  {name:'金融与保险',n:4, c:'#ff5f56',ang:'-90deg'}
+  {name:'媒体与广电',n:65,c:'#41ff8b',ang:'45deg'},
+  {name:'汽车与出行',n:10,c:'#ffb454',ang:'-45deg'},
+  {name:'通信与运营',n:10,c:'#45e0ff',ang:'90deg'},
+  {name:'政府与公共',n:9,c:'#a78bfa',ang:'0deg'},
+  {name:'能源与水务',n:3,c:'#ff6fd8',ang:'135deg'},
+  {name:'地产与文旅',n:3,c:'#ff5f56',ang:'-90deg'}
 ];
 
 const PROJECTS=[
@@ -1483,6 +1555,56 @@ const HEAT_DATA={"2025-11-10":2,"2025-11-11":1,"2025-11-12":2,"2025-11-13":2,"20
   });
   $('#heatGrid').addEventListener('mouseleave',()=>{read.textContent=def;});
 })();
+
+/* project atlas — real 项目材料 inventory, anonymized (industry + counts only, no client names) */
+const PANO_SECTORS=[
+  {name:'媒体广电',n:47,desc:'广电集团 · 卫视 · 融媒 · 报业 · 出版 · 网络视听'},
+  {name:'汽车出行',n:7, desc:'主机厂 · 新能源 · 商用车 · 营销与经营'},
+  {name:'通信运营',n:5, desc:'运营商 · 基础设施 · 生态企业'},
+  {name:'数字政府',n:5, desc:'省市区 · 应急 · 城投 · 宣传条线'},
+  {name:'运营生态',n:2, desc:'BI 集成 · 框架适配 · 生态联创'},
+  {name:'能源管网',n:1, desc:'长输管网 · 调度与经营'},
+  {name:'水务环保',n:1, desc:'供排水 · 城投经营'},
+  {name:'地产园区',n:1, desc:'数据中台 · 安全方案'},
+  {name:'文旅消费',n:1, desc:'旅文集团 · 消费场景'},
+  {name:'国资监管',n:1, desc:'数字国资 · 监管平台'},
+  {name:'专有政务',n:1, desc:'专有协同 · 数字参谋'}
+];
+const PANO_TOTAL=PANO_SECTORS.reduce((a,b)=>a+b.n,0);
+const PANO_MAX=Math.max.apply(null,PANO_SECTORS.map(s=>s.n));
+(function buildPanorama(){
+  const stats=[
+    {n:PANO_TOTAL,suffix:'+',k:'在档项目 · 真实归档'},
+    {n:PANO_SECTORS.length,k:'行业覆盖'},
+    {n:5,k:'年纵深 · 2021–2026'},
+    {n:PANO_MAX,k:'媒体广电 · 最深主线'}
+  ];
+  $('#panoStats').innerHTML=stats.map(s=>
+    '<div class="pano-stat"><div class="n mono-num" data-count="'+s.n+'"'+(s.suffix?' data-suffix="'+s.suffix+'"':'')+'>'+s.n+(s.suffix||'')+'</div>'+
+    '<div class="k">'+esc(s.k)+'</div></div>').join('');
+  $('#panoRows').innerHTML=PANO_SECTORS.map((s,i)=>{
+    const w=(s.n/PANO_MAX*100).toFixed(1), o=(1-i*0.05).toFixed(2), share=Math.round(s.n/PANO_TOTAL*100);
+    return '<div class="pano-row" data-i="'+i+'" data-hot="false" tabindex="0" aria-label="'+esc(s.name)+' '+s.n+' 个项目，约占 '+share+'%">'+
+      '<span class="pano-name">'+esc(s.name)+'</span>'+
+      '<span class="pano-track"><span class="pano-fill" style="--w:'+w+'%;--i:'+o+';transition-delay:'+(i*55)+'ms"></span></span>'+
+      '<span class="pano-n mono-num">'+s.n+'</span></div>';
+  }).join('');
+  $('#panoRows').setAttribute('aria-label','项目经验全景：'+PANO_TOTAL+' 个在档项目，覆盖 '+PANO_SECTORS.length+' 个行业，2021 至 2026');
+  const read=$('#panoRead'), def='共 <b>'+PANO_TOTAL+'</b> 个在档项目 · 覆盖 <b>'+PANO_SECTORS.length+'</b> 行业 · 悬停或聚焦查看行业构成';
+  read.innerHTML=def;
+  function hot(i){
+    $$('#panoRows .pano-row').forEach((r,j)=>{ r.dataset.hot=String(i===j); });
+    if(i===null){ read.innerHTML=def; return; }
+    const s=PANO_SECTORS[i], share=Math.round(s.n/PANO_TOTAL*100);
+    read.innerHTML='<b>'+esc(s.name)+'</b> · '+s.n+' 个项目 · 约占 '+share+'% · '+esc(s.desc);
+  }
+  const rows=$('#panoRows');
+  rows.addEventListener('mouseover',e=>{const r=e.target.closest('.pano-row'); if(r) hot(+r.dataset.i);});
+  rows.addEventListener('mouseleave',()=>hot(null));
+  rows.addEventListener('focusin',e=>{const r=e.target.closest('.pano-row'); if(r) hot(+r.dataset.i);});
+  rows.addEventListener('focusout',()=>hot(null));
+})();
+function growPano(){ const p=$('#pano'); if(p) p.classList.add('go'); }
 
 /* ---------- work ---------- */
 const TAGS=['全部'].concat(Array.from(new Set(PROJECTS.flatMap(p=>p.tags))));
@@ -1834,6 +1956,14 @@ const COMMANDS={
     openDrawer(proj.id);
     p('已打开 #'+pad(proj.idx)+' '+proj.title,'ok');
   }},
+  atlas:{desc:'项目经验全景（按行业归类）',run(){
+    p('项目经验全景 · '+PANO_TOTAL+' 个在档项目 · '+PANO_SECTORS.length+' 行业 · 2021–2026','ok'); gap();
+    PANO_SECTORS.forEach(s=>{
+      const on=Math.max(1,Math.round(s.n/PANO_MAX*BAR_LEN));
+      line(col(s.name,146,'dim')+'<span class="ok">'+'█'.repeat(on)+'</span><span class="muted">'+'░'.repeat(BAR_LEN-on)+'</span> <span class="ok">'+s.n+'</span>');
+    });
+    gap(); p('客户名已脱敏，只呈现行业与体量。输入 goto panorama 查看可视化全景。','muted');
+  }},
   radar:{desc:'最近的信号与动态',run(){
     p('信号雷达 · 最近 6 条','ok'); gap();
     RADAR.slice(0,6).forEach(r=>{
@@ -1862,7 +1992,7 @@ const COMMANDS={
   }},
   resume:{desc:'下载 Markdown 简历',run(){ doResume(); p('简历已开始下载：燃雪·郭超-简历.md','ok'); }},
   ls:{desc:'列出页面所有区块',run(){
-    const secs=[['overview','首屏'],['terminal','终端控制台'],['skills','能力矩阵'],['work','项目档案'],
+    const secs=[['overview','首屏'],['terminal','终端控制台'],['skills','能力矩阵'],['panorama','项目经验全景'],['work','项目档案'],
                 ['radar','信号雷达'],['notes','手记'],['stack','工具箱'],['contact','建立连接']];
     p('total '+secs.length,'muted');
     secs.forEach(s=>line('<span class="info">drwxr-xr-x</span>  <span class="ok">'+esc(padEndCJK(s[0],12))+'</span><span class="dim">'+esc(s[1])+'</span>'));
@@ -1871,7 +2001,7 @@ const COMMANDS={
   goto:{desc:'跳转到某个区块，如 goto work',run(args){
     const id=(args[0]||'').replace(/^#/,'');
     const el=id&&document.getElementById(id);
-    if(!el||!/^(overview|terminal|skills|work|radar|notes|stack|contact|top)$/.test(id)){
+    if(!el||!/^(overview|terminal|skills|panorama|work|radar|notes|stack|contact|top)$/.test(id)){
       p('未知区块「'+(args[0]||'')+'」。试试 ls','err'); Sound.err(); return;
     }
     el.scrollIntoView({behavior:motionOK()?'smooth':'auto',block:'start'});
@@ -1952,12 +2082,13 @@ const BOOT=[
   ['[ ok ] 加载 profile .............. 燃雪·郭超 / 杭州 / GMT+8','dim'],
   ['[ ok ] 挂载 能力矩阵 ............. '+SKILLS.length+' 项','dim'],
   ['[ ok ] 索引 项目档案 ............. '+PROJECTS.length+' 条','dim'],
+  ['[ ok ] 归档 项目全景 ............. '+PANO_TOTAL+' 个 / '+PANO_SECTORS.length+' 行业','dim'],
   ['[ ok ] 连接 信号雷达 ............. LIVE','dim'],
   ['[ ok ] 显示器 .................... P1 绿 / 扫描线 开','dim'],
   ['',''],
   ['  燃雪·郭超 · 售前解决方案架构师','ok'],
   ['  数据中台 / 智能 BI / AI Agent · 从可研写到上线','dim'],
-  ['  '+PROJECTS.length+' 条项目档案 · '+SKILLS.length+' 项能力 · '+NOTES.length+' 篇手记 · 全部可命令访问','dim'],
+  ['  '+PANO_TOTAL+'+ 在档项目 · '+PROJECTS.length+' 条旗舰档案 · '+SKILLS.length+' 项能力 · '+NOTES.length+' 篇手记 · 全部可命令访问','dim'],
   ['',''],
   ['系统就绪。输入 help 查看可用命令，或点下面的快捷命令。','ok']
 ];
@@ -2011,7 +2142,7 @@ $('#termCopyBtn').addEventListener('click',()=>{
 });
 $('#termHelpBtn').addEventListener('click',()=>{ runCommand('help'); input.focus(); });
 
-const HINTS=['help','whoami','neofetch','skills','projects','open 1','radar','notes','read 1','contact','theme amber','clear'];
+const HINTS=['help','whoami','neofetch','skills','projects','atlas','open 1','radar','notes','read 1','contact','theme amber','clear'];
 $('#termHints').innerHTML=HINTS.map(h=>'<button class="hint" type="button" data-h="'+esc(h)+'">'+esc(h)+'</button>').join('');
 $('#termHints').addEventListener('click',e=>{
   const b=e.target.closest('.hint'); if(!b) return;
@@ -2051,6 +2182,12 @@ function resumeText(){
   L.push('## 能力矩阵（自评：能独立交付的把握程度）');
   L.push('');
   SKILLS.forEach(s=>{ L.push('- **'+s.name+'** '+s.pct+'% — '+s.stack); L.push('  '+s.desc); });
+  L.push('');
+  L.push('## 项目经验全景（客户已脱敏，按行业归类）');
+  L.push('');
+  L.push('五年间真实交付与参与 '+PANO_TOTAL+'+ 个项目，覆盖 '+PANO_SECTORS.length+' 个行业（2021–2026）。下方项目档案为其中可公开深写的旗舰案例。');
+  L.push('');
+  PANO_SECTORS.forEach(s=>L.push('- '+s.name+'：'+s.n+' 个 — '+s.desc));
   L.push('');
   L.push('## 项目档案（客户已脱敏）');
   L.push('');
@@ -2195,12 +2332,14 @@ function reveal(el){
   setTimeout(()=>el.classList.add('shown'),700);
   if(el.classList.contains('skill')) animateSkill(el);
   if(el.classList.contains('chart')) growDist();
+  if(el.classList.contains('pano')) growPano();
 }
 function finalizeAll(){
   $$('.rv').forEach(el=>{ el.classList.remove('armed'); el.classList.add('in','shown'); });
   $$('[data-count]').forEach(finishCount);
   $$('.skill').forEach(finishSkill);
   growDist();
+  growPano();
 }
 let armed=false;
 function armAnimations(){
@@ -2230,7 +2369,7 @@ const secIO=new IntersectionObserver(es=>{
     a.setAttribute('aria-current','true');
   });
 },{rootMargin:'-45% 0px -50% 0px',threshold:0});
-['terminal','skills','work','radar','notes','contact'].forEach(id=>{
+['terminal','skills','panorama','work','radar','notes','contact'].forEach(id=>{
   const el=document.getElementById(id); if(el) secIO.observe(el);
 });
 
