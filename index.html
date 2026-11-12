@@ -722,7 +722,7 @@ select option{background:#0e1512;color:#d6e2da}
     <div class="hero-stats">
       <span class="stat-pill"><b class="mono-num" data-count="10">10</b> 年数据领域</span>
       <span class="stat-pill"><b class="mono-num" data-count="4">4</b> 条 Agent 流水线</span>
-      <span class="stat-pill"><b class="mono-num" data-count="72" data-suffix="+">72+</b> 个在档项目</span>
+      <span class="stat-pill"><b class="mono-num" data-count="106" data-suffix="+">106+</b> 个在档项目</span>
       <span class="stat-pill">跨 <b>11</b> 行业 · <b>5</b> 年纵深</span>
     </div>
 
@@ -833,7 +833,7 @@ select option{background:#0e1512;color:#d6e2da}
         <div class="pano-read" id="panoRead" aria-live="polite"></div>
       </div>
       <div class="pano-foot">
-        <span>口径：本机「项目材料」归档，一个项目文件夹计一条；部分行业下还有子项目，实际更多。</span>
+        <span>口径：本机「项目材料」归档按项目文件夹计数；运营商已下钻至省分/专业公司/研究院级项目，媒体等按客户归档计，部分行业仍有子项目未展开。</span>
         <a href="#work">→ 看旗舰案例深写</a>
       </div>
     </div>
@@ -845,7 +845,7 @@ select option{background:#0e1512;color:#d6e2da}
   <div class="wrap">
     <div class="sec-head">
       <h2 id="workTitle">项目档案</h2>
-      <span class="sub">72+ 项目中的旗舰案例 · 客户名已脱敏</span>
+      <span class="sub">106+ 项目中的旗舰案例 · 客户名已脱敏</span>
       <span class="spacer"></span>
       <button class="act" data-cmd="projects">❯ 在终端里看</button>
     </div>
@@ -1199,7 +1199,7 @@ const PROFILE={
 };
 
 const KPIS=[
-  {n:'72+',k:'在档项目 · 11 行业'},
+  {n:'106+',k:'在档项目 · 11 行业'},
   {n:'4',k:'Agent 流水线'},
   {n:'94',k:'场调研听记归档'},
   {n:'0',k:'素材上传字节'}
@@ -1221,12 +1221,12 @@ const SKILLS=[
 ];
 
 const INDUSTRIES=[
-  {name:'媒体与广电',n:65,c:'#41ff8b',ang:'45deg'},
-  {name:'汽车与出行',n:10,c:'#ffb454',ang:'-45deg'},
-  {name:'通信与运营',n:10,c:'#45e0ff',ang:'90deg'},
-  {name:'政府与公共',n:9,c:'#a78bfa',ang:'0deg'},
-  {name:'能源与水务',n:3,c:'#ff6fd8',ang:'135deg'},
-  {name:'地产与文旅',n:3,c:'#ff5f56',ang:'-90deg'}
+  {name:'媒体与广电',n:44,c:'#41ff8b',ang:'45deg'},
+  {name:'通信与运营',n:38,c:'#45e0ff',ang:'90deg'},
+  {name:'汽车与出行',n:7,c:'#ffb454',ang:'-45deg'},
+  {name:'政府与公共',n:7,c:'#a78bfa',ang:'0deg'},
+  {name:'能源与水务',n:2,c:'#ff6fd8',ang:'135deg'},
+  {name:'地产与文旅',n:2,c:'#ff5f56',ang:'-90deg'}
 ];
 
 const PROJECTS=[
@@ -1547,8 +1547,8 @@ const HEAT_DATA={"2025-11-10":2,"2025-11-11":1,"2025-11-12":2,"2025-11-13":2,"20
 /* project atlas — real 项目材料 inventory, anonymized (industry + counts only, no client names) */
 const PANO_SECTORS=[
   {name:'媒体广电',n:47,desc:'广电集团 · 卫视 · 融媒 · 报业 · 出版 · 网络视听'},
+  {name:'通信运营',n:39,desc:'运营商集团 · 省分公司 · 专业子公司 · 研究院'},
   {name:'汽车出行',n:7, desc:'主机厂 · 新能源 · 商用车 · 营销与经营'},
-  {name:'通信运营',n:5, desc:'运营商 · 基础设施 · 生态企业'},
   {name:'数字政府',n:5, desc:'省市区 · 应急 · 城投 · 宣传条线'},
   {name:'运营生态',n:2, desc:'BI 集成 · 框架适配 · 生态联创'},
   {name:'能源管网',n:1, desc:'长输管网 · 调度与经营'},
