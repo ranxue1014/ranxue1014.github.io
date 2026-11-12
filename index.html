@@ -482,21 +482,6 @@ input[type=range]::-moz-range-thumb{width:12px;height:12px;border:0;border-radiu
 .ritem .txt small{display:block;color:var(--faint);font-size:11px;margin-top:3px}
 .ritem .txt a{color:var(--cyan)}
 
-/* ---------- timeline ---------- */
-.tl{position:relative;padding-left:26px;margin-top:4px}
-.tl::before{content:"";position:absolute;left:7px;top:8px;bottom:14px;width:1px;
-  background:linear-gradient(180deg,var(--p1),rgba(var(--acc),.12))}
-.tli{position:relative;padding-bottom:22px}
-.tli::before{content:"";position:absolute;left:-24px;top:5px;width:11px;height:11px;border-radius:50%;
-  background:var(--ink);border:2px solid var(--p1);box-shadow:0 0 calc(12px*var(--glow-k)) rgba(var(--acc),.5)}
-.tli[data-old="true"]::before{border-color:var(--line2);box-shadow:none}
-.tli .yr{font-size:11px;color:var(--p1);letter-spacing:.14em;font-weight:700}
-.tli[data-old="true"] .yr{color:var(--faint)}
-.tli h3{font-size:14px;margin-top:3px;font-weight:700}
-.tli .org{font-size:11.5px;color:var(--faint);margin-top:1px}
-.tli p{font-size:12.5px;color:var(--dim);margin-top:7px;max-width:72ch}
-.tli .tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
-
 /* ---------- notes ---------- */
 .note{border:1px solid var(--line);border-radius:10px;background:var(--panel);margin-bottom:10px;overflow:hidden;transition:border-color .2s}
 .note:hover{border-color:rgba(var(--acc),.32)}
@@ -649,7 +634,6 @@ select option{background:#0e1512;color:#d6e2da}
       <a href="#skills" data-nav="skills">能力</a>
       <a href="#work" data-nav="work">项目</a>
       <a href="#radar" data-nav="radar">雷达</a>
-      <a href="#timeline" data-nav="timeline">履历</a>
       <a href="#notes" data-nav="notes">手记</a>
       <a href="#contact" data-nav="contact">联系</a>
     </nav>
@@ -843,19 +827,6 @@ select option{background:#0e1512;color:#d6e2da}
       </div>
       <div class="radar-list" id="radarList"></div>
     </div>
-  </div>
-</section>
-
-<!-- ============ TIMELINE ============ -->
-<section class="sec" id="timeline" aria-labelledby="tlTitle">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2 id="tlTitle">履历</h2>
-      <span class="sub">从写 SQL 到写方案，再回到写代码</span>
-      <span class="spacer"></span>
-      <button class="act" data-cmd="timeline">❯ 在终端里看</button>
-    </div>
-    <div class="tl" id="tlList"></div>
   </div>
 </section>
 
@@ -1170,7 +1141,7 @@ const PROFILE={
 const KPIS=[
   {n:'3',k:'在跑售前 / 可研主线'},
   {n:'4',k:'Agent 流水线'},
-  {n:'120',k:'问数回归题集'},
+  {n:'94',k:'场调研听记归档'},
   {n:'0',k:'素材上传字节'}
 ];
 
@@ -1185,50 +1156,51 @@ const SKILLS=[
    desc:'云上离线加实时、云下 MPP 的混合底座；自主可控 CPU / OS 适配与外部注册集群调度的可行性验证。'},
   {id:'ai',name:'AI Agent 与自动化',pct:78,stack:'LLM · Skill / MCP · 文档流水线',
    desc:'把重复的文档与校验工作变成可复用技能：需求书生成、禁用词校验、报价拆解、跨源资料检索。'},
-  {id:'presales',name:'方案与投标',pct:94,stack:'可研 · 技术需求书 · 评分项响应',
-   desc:'业务场景—产品能力—数据输入三层结构；投资估算、功能清单拆条、评标风险与验收证据前置。'}
+  {id:'presales',name:'方案投标与客户洞察',pct:94,stack:'可研 · 技术需求书 · 关键人调研',
+   desc:'业务场景—产品能力—数据输入三层结构；投资估算、功能清单拆条、评分项响应与验收证据前置；拜访前用公开信息摸清客户组织架构、决策链与数字化条线。'}
 ];
 
 const INDUSTRIES=[
-  {name:'媒体与广电',n:30,c:'#41ff8b',ang:'45deg'},
-  {name:'通信与终端',n:22,c:'#ffb454',ang:'-45deg'},
-  {name:'政企与公共',n:18,c:'#45e0ff',ang:'90deg'},
-  {name:'零售与消费',n:13,c:'#a78bfa',ang:'0deg'},
-  {name:'制造与供应链',n:10,c:'#ff6fd8',ang:'135deg'},
-  {name:'金融与保险',n:7, c:'#ff5f56',ang:'-90deg'}
+  {name:'媒体与广电',n:48,c:'#41ff8b',ang:'45deg'},
+  {name:'通信与终端',n:24,c:'#ffb454',ang:'-45deg'},
+  {name:'政企与公共',n:12,c:'#45e0ff',ang:'90deg'},
+  {name:'零售与消费',n:7,c:'#a78bfa',ang:'0deg'},
+  {name:'制造与供应链',n:5,c:'#ff6fd8',ang:'135deg'},
+  {name:'金融与保险',n:4, c:'#ff5f56',ang:'-90deg'}
 ];
 
 const PROJECTS=[
   {
-    id:'p1',idx:1,title:'媒体集团数据底座 · 可行性研究',
-    client:'某大型媒体集团',year:2026,status:'进行中',kind:'warn',scale:2000,scaleLabel:'可研阶段',
+    id:'p1',idx:1,title:'媒体集团数据中台 · 从可研到交付启动',
+    client:'某大型媒体集团',year:2026,status:'进行中',kind:'warn',scale:2000,scaleLabel:'可研→交付',
     tags:['数据中台','安全合规','方案投标'],
-    summary:'为融媒体系规划数据底座：云上治理 + 本地安全执行节点的混合形态，敏感数据留在本地、只交换元数据。',
-    background:'客户希望复用云上成熟的计算与治理能力，同时要求一部分敏感数据不出内网，并对底座的自主可控有硬性要求。可行性研究阶段必须先把「数据在哪算、两侧交换什么」这条边界画清楚，否则后续每一版方案都会推倒重来。',
-    approach:'先把业务架构拉成一条线：数据来源 → 数据湖 → 数据治理 → 核心应用 → 能力组件 → AI 赋能 → 安全与接口。指标按统一方法论组织，BI 只做资产接入与语义建模，不重复造口径。底座做双形态：云上用离线数仓加实时引擎，云下用本地 MPP 作为安全执行节点，通过治理平台的外部注册集群统一调度，两侧只交换元数据，任务在数据所在地执行。',
+    summary:'一年期数据中台主线：从售前摸底、真实数据 POC，到业务调研、投标、提前入场与正式启动，承接数字基座与数据中台。',
+    background:'客户要汇聚全集团主体数据、跨系统拉通唯一 ID，支撑内容生产、内容运营、内容分发与内部办公四类应用。难点不在看板，而在「数据在哪算、敏感数据怎么不出域、业务断点怎么用一个整体讲清」——这些不先画清楚，后续每一版方案都会推倒重来。',
+    approach:'按四层拉架构：数据源 → 数据中台（结构化 + 非结构化）→ 平台能力层（API / MCP / 业务中台）→ 应用层。底座做半托管混合形态：云上离线加实时，云下调度集群加本地 MPP 承载敏感数据，专线互联、等保三级、动态脱敏。业务侧用「选题—生产—编排—分发—效果回流」五步闭环组织场景，把舆情、选题、传播三端缺唯一 ID 的断点，统一交给语义层与本体知识图谱解决。驻场访谈八个业务方向，把数据来源、接口形态与主数据缺口写成 SOW 与数据接入清单。',
     results:[
-      '把「敏感数据不出域」从一句口号拆成了可验收的条款：数据分级、执行位置、元数据交互范围、审计留痕，逐条对应证据。',
-      '在可研阶段就暴露了部署形态与自主可控要求之间的冲突，给出本地 MPP + 外部注册集群的替代路线与验证清单。',
-      '外部标签补充画像走安全撞库与去标识化，隐私计算与合规写进方案而不是附录。',
-      '数据服务边界写死在产品实际能力内：SQL API、鉴权、行列级权限、限流与监控告警，不承诺超纲能力。'
+      '把「敏感数据不出域」拆成可验收条款：数据分级、执行位置、元数据交互范围、审计留痕，逐条对应证据。',
+      '业务断点按一个整体讲：唯一 ID 贯通与语义层是同一问题的两面，汇报口径合并，避免拆成两项独立工作。',
+      '投标阶段把产品能力边界写死，需求两周锁定、额外工作量单独记录，交付边界与三线责任人在启动会书面固化。',
+      '主数据缺口（如栏目—责任人映射）明确为客户侧责任并写入风险清单，不靠技术手段硬补。'
     ],
-    stack:['数据治理平台','智能 BI','离线数仓','实时引擎','本地 MPP','隐私计算'],
-    metrics:[{n:'双形态',k:'云上 + 云下'},{n:'元数据',k:'仅交换内容'},{n:'L1–L4',k:'数据分级'}]
+    stack:['数据治理平台','智能 BI','离线数仓','实时引擎','本地 MPP','知识图谱','隐私计算'],
+    metrics:[{n:'4',k:'架构层级'},{n:'5',k:'业务闭环步骤'},{n:'8',k:'调研业务方向'}]
   },
   {
-    id:'p2',idx:2,title:'通信终端行业 · 年度运维服务方案',
-    client:'某通信终端企业',year:2025,status:'已交付',kind:'ok',scale:900,scaleLabel:'运维投标',
-    tags:['方案投标','数据中台'],
-    summary:'面向已有数据平台的年度运维投标：SLA 分层、值班与应急机制、容量与成本治理，以及可量化的考核口径。',
-    background:'客户的平台已经稳定运行一段时间，真正的问题不是「建不建」，而是「怎么持续跑好」。运维类合同最容易在「什么算故障、怎么统计」上产生分歧，续签前必须先把口径谈拢。',
-    approach:'把运维拆成三层来写：基础设施与集群可用性、数据任务与产出时效、业务侧数据可用性。每层给出明确的 SLA 定义、统计窗口、免责边界与考核公式；再配上分级响应机制、变更流程与季度容量复盘。方案里前置了监控大盘与巡检报告的样例，让评委看得见交付物长什么样。',
+    id:'p2',idx:2,title:'广电集团经营驾驶舱 · 全链路演示 Demo',
+    client:'某省级广电网络集团',year:2026,status:'已交付',kind:'ok',scale:900,scaleLabel:'演示 Demo',
+    tags:['数据中台','智能BI','方案投标'],
+    summary:'在 Dataphin + Quick BI 上端到端搭通一条经营驾驶舱演示链路：业务数据 → 自动加工 → 质量校验 → 统一指标 → 交互驾驶舱 → 自动预警，全部真实跑通。',
+    background:'售前演示最怕「PPT 好看、系统空壳」。客户要看真数据、真加工、真口径，而不是截图。于是决定在演示环境把整条链路真的搭起来——签约后只需把数据源切到真实接口，加工逻辑、指标体系与版式全部复用。',
+    approach:'以集团经营 KPI 为切入：财务、人力月度数据进 ODS，一条日调度任务加工出 ADS 宽表（组织 × 月份，覆盖累计、同比、年度目标进度、派生指标与预警标记），加工 SQL 分层清晰、口径全部沉淀为代码。应用表配数据质量规则，不达质检不上驾驶舱。Quick BI 数据集直连宽表，最终以 AI 数据报告（交互式 HTML）交付：首屏总览、月份切换、省市县三级地图下钻、排名与预警联动；按「集团看全省、市州看本单位」配行级权限。同一链路复制到业财一体、客户运营 360、网络运维监控、智能问数等共六个场景。',
     results:[
-      'SLA 从「尽量保障」变成三条可计算的分层指标，考核争议在合同阶段就消除。',
-      '把容量与成本治理写成季度动作，避免只增不减的资源账单。',
-      '投标文件前置系统截图与巡检样例，技术分评委的观感明显改善。'
+      '从建表、加工到驾驶舱约 2.5 天搭通全链路，演示「数出有据」：质量规则试跑全部通过。',
+      '口径沉淀为可评审、可复用、可追溯的代码，而不是散落在 PPT 里的数字。',
+      '交互式 HTML 报告浏览器打开即用，支持悬停取值、点击下钻、月份联动，评委看得见摸得着。',
+      '链路成熟可快速复制，签约后切真实数据源即可复用加工逻辑与指标体系。'
     ],
-    stack:['SLA 设计','监控告警','调度运维','容量治理','投标文档'],
-    metrics:[{n:'3',k:'SLA 分层'},{n:'7×24',k:'响应机制'},{n:'季度',k:'容量复盘'}]
+    stack:['Dataphin','Quick BI','ODS / ADS 分层','指标字典','数据质量规则','行级权限'],
+    metrics:[{n:'6',k:'演示场景'},{n:'三级',k:'省市县穿透'},{n:'2.5天',k:'全链路搭通'}]
   },
   {
     id:'p3',idx:3,title:'智能问数 PoC · 从报表到对话',
@@ -1246,19 +1218,19 @@ const PROJECTS=[
     metrics:[{n:'语义层',k:'提升主因'},{n:'120',k:'回归题集'},{n:'0',k:'越权返回'}]
   },
   {
-    id:'p4',idx:4,title:'销售运营数据看板体系',
-    client:'某 SaaS 销售团队',year:2025,status:'已交付',kind:'ok',scale:500,scaleLabel:'中型',
-    tags:['智能BI','数据中台'],
-    summary:'把散在 CRM、表格和周报里的业绩数据收成一套看板：行业分类、完成情况、趋势与异常，一屏说清。',
-    background:'销售管理层的周会靠人工拼表，同一个「完成率」在不同部门口径不一。开会前大量时间花在对数，而不是讨论业务。',
-    approach:'先做口径仲裁：把完成率、回款、新签、续费统一定义并落到语义层，再按行业 / 区域 / 产品三个维度建汇总模型。看板分三层：管理层一屏看全局，区域经理看自己的盘子，一线看自己的单子。异常项用规则自动打标，周会直接从异常清单开始。',
+    id:'p4',idx:4,title:'客户关键人调研与组织架构分析',
+    client:'某省级广电网络企业',year:2026,status:'已交付',kind:'ok',scale:500,scaleLabel:'售前调研',
+    tags:['方案投标','售前调研'],
+    summary:'基于公开信息做客户关键人摸底：企业简介、组织架构、关键人画像、决策链与数字化条线，输出可直接支撑商务推动的售前启示。',
+    background:'大型集团客户决策链长、条线复杂，搞不清「谁拍板、谁主管数字化、汇报该找谁」，方案再好在商务上也推不动。需要在拜访前把关键人与决策脉络摸清。',
+    approach:'从官网、年报、权威新闻、公开任免与工作会议报道搜集信息，先搭组织架构图，再逐人建画像（分管条线、任职脉络、关键主张），据此梳理决策链与数字化条线，标注判断依据与置信度，最后落到「售前启示」：谁该重点拜访、数字化条线的技术一把手是谁、哪些主张可以呼应。所有判断只基于公开信息，提示性而非定论。',
     results:[
-      '周会前的对数时间大幅压缩，会议直接讨论异常。',
-      '完成率口径统一后，跨部门数据第一次能直接相加。',
-      '异常自动打标让跟进从「翻表找问题」变成「处理待办」。'
+      '输出一套结构化关键人清单与组织架构，商务拜访前心里有数。',
+      '决策链与数字化条线清晰，方案汇报能找对人、说对话。',
+      '判断逐条附依据与置信度，区分事实与推断，避免把猜测当结论。'
     ],
-    stack:['Quick BI','CRM 数据','语义层','维度建模','规则打标'],
-    metrics:[{n:'3',k:'看板层级'},{n:'1',k:'统一口径'},{n:'≈0',k:'会前对数'}]
+    stack:['公开信息检索','组织架构分析','关键人画像','决策链梳理','来源引用'],
+    metrics:[{n:'16',k:'关键人画像'},{n:'6',k:'分析板块'},{n:'公开',k:'信息来源'}]
   },
   {
     id:'p5',idx:5,title:'售前文档流水线 · 需求书自动生成',
@@ -1313,29 +1285,11 @@ const RADAR=[
   {d:'2026-11-05T21:40:00+08:00',kind:'NOTE',  text:'发布手记《敏感数据不出域，到底怎么落》',sub:'把口号拆成可验收条款的四步法',note:1},
   {d:'2026-11-02T14:12:00+08:00',kind:'SHIP',  text:'售前文档流水线 v3 上线：Excel → Markdown → docx 全自动',sub:'交付前强制跑禁用词与品牌词双向校验'},
   {d:'2026-10-28T19:30:00+08:00',kind:'TALK',  text:'内部分享《售前方案的三层结构》',sub:'业务场景 — 产品能力 — 数据输入'},
-  {d:'2026-10-21T11:08:00+08:00',kind:'SIGNAL',text:'本地 MPP 经外部注册集群调度跑通，敏感数据留在内网',sub:'两侧只交换元数据，任务在数据所在地执行'},
-  {d:'2026-10-14T20:55:00+08:00',kind:'NOTE',  text:'发布手记《把禁用词校验做成流水线的一部分》',sub:'人眼检查一定会漏，脚本不会',note:3},
-  {d:'2026-10-06T09:45:00+08:00',kind:'SHIP',  text:'数据服务 API 的行 / 列级权限模板沉淀为复用清单',sub:'同时写明「不承诺什么」，避免售前说过头'}
+  {d:'2026-10-23T15:00:00+08:00',kind:'SHIP',  text:'媒体集团数据中台项目正式启动',sub:'交付边界、三线责任人与指导委员会书面固化'},
+  {d:'2026-10-16T11:08:00+08:00',kind:'SHIP',  text:'广电经营驾驶舱全链路演示 Demo 搭通',sub:'六场景真实跑通，质量规则试跑全部通过'},
+  {d:'2026-10-14T20:55:00+08:00',kind:'NOTE',  text:'发布手记《把禁用词校验做成流水线的一部分》',sub:'人眼检查一定会漏，脚本不会',note:3}
 ];
 const RADAR_KINDS={SHIP:'ok',SIGNAL:'info',NOTE:'violet',TALK:'warn'};
-
-const TIMELINE=[
-  {yr:'2024 — 至今',role:'售前解决方案架构师',org:'数据智能产品厂商 · 杭州',old:false,
-   desc:'负责数据中台、智能 BI 与增长营销方向的售前方案：可行性研究、技术需求书、评分项响应与投标答辩。同时把重复的文档工作做成 Agent 流水线。',
-   tags:['可行性研究','技术需求书','混合底座','Agent 流水线']},
-  {yr:'2022 — 2024',role:'高级数据顾问',org:'数据中台交付团队',old:false,
-   desc:'从售前走进交付：数据域划分、分层建模、指标口径仲裁、数据服务与权限边界。开始明白方案里写下的每一句话，最后都要有人去实现。',
-   tags:['OneData','数据服务','权限边界','口径仲裁']},
-  {yr:'2020 — 2022',role:'BI 负责人',org:'零售集团数据团队',old:true,
-   desc:'带一个小团队做全公司的报表与分析体系。最大的收获不是做了多少张报表，而是把「同一个指标只能有一个算法」这件事推成了制度。',
-   tags:['语义层','指标治理','看板体系']},
-  {yr:'2018 — 2020',role:'数据仓库工程师',org:'互联网平台',old:true,
-   desc:'写调度、修任务、追数据延迟。凌晨被基线告警叫起来的次数，决定了我后来写方案时对「可运维性」的执念。',
-   tags:['数仓分层','调度','数据质量']},
-  {yr:'2016 — 2018',role:'数据分析师',org:'消费品牌',old:true,
-   desc:'从 SQL 和 Excel 开始，做销售与用户分析。第一次意识到：业务问的从来不是数字，是「我下一步该干什么」。',
-   tags:['SQL','用户分析','业务洞察']}
-];
 
 const NOTES=[
   {id:1,date:'2026-11-05',read:'6 min',title:'敏感数据不出域，到底怎么落',tags:['安全合规','数据中台'],
@@ -1358,7 +1312,7 @@ const NOTES=[
    ]},
   {id:4,date:'2026-09-30',read:'7 min',title:'Agent 不是聊天框：让它真的去改文件',tags:['AI Agent','自动化'],
    body:[
-     '很多人对 Agent 的期待停留在「回答得不错」。但售前工作里真正耗时间的不是回答问题，是搬运内容：把清单扩写成需求、把报价拆成险种、把资料从这个格式转到那个格式。<strong>能落地的 Agent，必须真的动文件。</strong>',
+     '很多人对 Agent 的期待停留在「回答得不错」。但售前工作里真正耗时间的不是回答问题，是搬运内容：把清单扩写成需求、把报价拆成模块、把资料从这个格式转到那个格式。<strong>能落地的 Agent，必须真的动文件。</strong>',
      '让它动文件的前提是给它明确的边界：读哪些目录、写哪些文件、什么情况下必须停下来问人。我的习惯是把任务切成可验证的小段——生成一段就校验一段，而不是让它一口气写完两百页再回头检查。校验脚本是 Agent 的安全带，没有它，自动化只是把错误规模化了。',
      '<span class="quote">判断一个 Agent 方案靠不靠谱，我只看一件事：它出错的时候，你能不能在两分钟内定位到是哪一步、并且只重跑那一步。</span>'
    ]}
@@ -1729,16 +1683,6 @@ $('#radarList').addEventListener('click',e=>{
 renderRadar();
 setInterval(tickRadar,30000);
 
-/* ---------- timeline ---------- */
-$('#tlList').innerHTML=TIMELINE.map(t=>
-  '<div class="tli rv" data-old="'+t.old+'">'+
-    '<div class="yr">'+esc(t.yr)+'</div>'+
-    '<h3>'+esc(t.role)+'</h3>'+
-    '<div class="org">'+esc(t.org)+'</div>'+
-    '<p>'+esc(t.desc)+'</p>'+
-    '<div class="tags">'+t.tags.map(x=>'<span class="tag">'+esc(x)+'</span>').join('')+'</div>'+
-  '</div>').join('');
-
 /* ---------- notes ---------- */
 $('#notesList').innerHTML=NOTES.map(n=>
   '<article class="note rv" data-note="'+n.id+'" data-open="false">'+
@@ -1901,13 +1845,6 @@ const COMMANDS={
       line(col(relTime(r.d),82,'muted')+col(r.kind,64,cls)+esc(r.text));
     });
   }},
-  timeline:{desc:'履历时间线',run(){
-    p('履历','ok'); gap();
-    TIMELINE.forEach(t=>{
-      line('<span class="ok">'+esc(t.yr)+'</span>  '+esc(t.role));
-      line('  <span class="muted">'+esc(t.org)+'</span>');
-    });
-  }},
   notes:{desc:'手记列表',run(){
     p('手记 · '+NOTES.length+' 篇','ok'); gap();
     NOTES.forEach(n=>line('<span class="muted">'+pad(n.id)+'</span>  '+esc(n.title)+'  <span class="muted">'+n.date+' · '+esc(n.read)+'</span>'));
@@ -1930,7 +1867,7 @@ const COMMANDS={
   resume:{desc:'下载 Markdown 简历',run(){ doResume(); p('简历已开始下载：燃雪·郭超-简历.md','ok'); }},
   ls:{desc:'列出页面所有区块',run(){
     const secs=[['overview','首屏'],['terminal','终端控制台'],['skills','能力矩阵'],['work','项目档案'],
-                ['radar','信号雷达'],['timeline','履历'],['notes','手记'],['stack','工具箱'],['contact','建立连接']];
+                ['radar','信号雷达'],['notes','手记'],['stack','工具箱'],['contact','建立连接']];
     p('total '+secs.length,'muted');
     secs.forEach(s=>line('<span class="info">drwxr-xr-x</span>  <span class="ok">'+esc(padEndCJK(s[0],12))+'</span><span class="dim">'+esc(s[1])+'</span>'));
     gap(); p('用 goto <区块名> 跳转，例如 goto work','muted');
@@ -1938,7 +1875,7 @@ const COMMANDS={
   goto:{desc:'跳转到某个区块，如 goto work',run(args){
     const id=(args[0]||'').replace(/^#/,'');
     const el=id&&document.getElementById(id);
-    if(!el||!/^(overview|terminal|skills|work|radar|timeline|notes|stack|contact|top)$/.test(id)){
+    if(!el||!/^(overview|terminal|skills|work|radar|notes|stack|contact|top)$/.test(id)){
       p('未知区块「'+(args[0]||'')+'」。试试 ls','err'); Sound.err(); return;
     }
     el.scrollIntoView({behavior:motionOK()?'smooth':'auto',block:'start'});
@@ -2061,7 +1998,7 @@ input.addEventListener('keydown',e=>{
       let opts=[];
       if(name==='theme') opts=['green','amber','cyan'];
       else if(name==='sound'||name==='scanlines') opts=['on','off'];
-      else if(name==='goto') opts=['overview','terminal','skills','work','radar','timeline','notes','stack','contact'];
+      else if(name==='goto') opts=['overview','terminal','skills','work','radar','notes','stack','contact'];
       else if(name==='open') opts=PROJECTS.map(x=>String(x.idx));
       else if(name==='read') opts=NOTES.map(x=>String(x.id));
       const m=opts.filter(o=>o.indexOf(last)===0);
@@ -2107,7 +2044,7 @@ function resumeText(){
   L.push('- 方向：'+PROFILE.focus);
   L.push('- 常驻：'+PROFILE.city+' · '+PROFILE.tz);
   L.push('- 邮箱：'+PROFILE.email);
-  L.push('- 站点：ranxue.sh');
+  L.push('- 站点：https://ranxue1014.github.io/');
   L.push('');
   L.push('## 概述');
   L.push('');
@@ -2136,10 +2073,6 @@ function resumeText(){
     L.push('**技术栈**：'+x.stack.join(' · '));
     L.push('');
   });
-  L.push('## 履历');
-  L.push('');
-  TIMELINE.forEach(t=>{ L.push('- **'+t.yr+'** '+t.role+' — '+t.org); L.push('  '+t.desc); });
-  L.push('');
   L.push('## 手记');
   L.push('');
   NOTES.forEach(n=>L.push('- '+n.date+' 《'+n.title+'》 '+n.read));
@@ -2158,7 +2091,7 @@ $('#vcardBtn').addEventListener('click',()=>{
   const v=['BEGIN:VCARD','VERSION:3.0','N:郭;超;;;','FN:'+PROFILE.name,'NICKNAME:燃雪',
     'TITLE:'+PROFILE.role,'ORG:数据智能解决方案','EMAIL;type=INTERNET;type=WORK:'+PROFILE.email,
     'ADR;type=WORK:;;;杭州;浙江;;中国','NOTE:'+PROFILE.focus,
-    'URL:https://ranxue.sh','REV:'+new Date().toISOString(),'END:VCARD'].join('\r\n');
+    'URL:https://ranxue1014.github.io/','REV:'+new Date().toISOString(),'END:VCARD'].join('\r\n');
   download('燃雪·郭超.vcf',v,'text/vcard'); Sound.ok(); toast('名片已下载，可直接导入通讯录');
 });
 
@@ -2301,7 +2234,7 @@ const secIO=new IntersectionObserver(es=>{
     a.setAttribute('aria-current','true');
   });
 },{rootMargin:'-45% 0px -50% 0px',threshold:0});
-['terminal','skills','work','radar','timeline','notes','contact'].forEach(id=>{
+['terminal','skills','work','radar','notes','contact'].forEach(id=>{
   const el=document.getElementById(id); if(el) secIO.observe(el);
 });
 
