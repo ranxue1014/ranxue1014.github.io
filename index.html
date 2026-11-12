@@ -690,10 +690,6 @@ select option{background:#0e1512;color:#d6e2da}
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5L6 9H3v6h3l5 4V5z"/><path class="wave" d="M15.5 8.5a5 5 0 010 7M18.5 6a8.5 8.5 0 010 12"/></svg>
         <span id="soundLbl">音效 开</span>
       </button>
-      <button class="iconbtn" id="resumeBtn" title="下载 Markdown 简历">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 11l5 5 5-5M4 20h16"/></svg>
-        <span>简历</span>
-      </button>
     </div>
   </div>
 </header>
@@ -950,10 +946,6 @@ select option{background:#0e1512;color:#d6e2da}
             <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2.2"/><path d="M5.5 17c.7-1.8 2-2.6 3.5-2.6s2.8.8 3.5 2.6M15 10h4M15 14h3"/></svg>
             下载名片
           </button>
-          <button class="btn dim" id="resumeBtn2">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 11l5 5 5-5M4 20h16"/></svg>
-            下载简历
-          </button>
         </div>
       </div>
 
@@ -1058,10 +1050,6 @@ select option{background:#0e1512;color:#d6e2da}
 
 <!-- ============ RIGHT RAIL ============ -->
 <div class="rail" role="group" aria-label="快捷操作">
-  <button id="railResume" title="下载简历" aria-label="下载简历">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11M7.5 10.5L12 15l4.5-4.5M4 19h16"/></svg>
-  </button>
-  <div class="sep" aria-hidden="true"></div>
   <button id="railMail" title="发邮件" aria-label="发邮件">
     <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg>
   </button>
@@ -1988,9 +1976,8 @@ const COMMANDS={
     line('  '+col('邮箱',58,'muted')+'<span class="info">'+esc(PROFILE.email)+'</span>');
     line('  '+col('城市',58,'muted')+esc(PROFILE.city+' · '+PROFILE.tz));
     line('  '+col('响应',58,'muted')+'工作日 24 小时内');
-    gap(); p('输入 resume 下载简历，或直接去页面底部的表单留言。','muted');
+    gap(); p('复制上方邮箱，或直接去页面底部的表单留言。','muted');
   }},
-  resume:{desc:'下载 Markdown 简历',run(){ doResume(); p('简历已开始下载：燃雪·郭超-简历.md','ok'); }},
   ls:{desc:'列出页面所有区块',run(){
     const secs=[['overview','首屏'],['terminal','终端控制台'],['skills','能力矩阵'],['panorama','项目经验全景'],['work','项目档案'],
                 ['radar','信号雷达'],['notes','手记'],['stack','工具箱'],['contact','建立连接']];
@@ -2162,64 +2149,8 @@ document.addEventListener('keydown',e=>{
 });
 
 /* ==========================================================
-   6. downloads
+   6. contact card (vCard)
    ========================================================== */
-function resumeText(){
-  const L=[];
-  L.push('# '+PROFILE.name+' — '+PROFILE.role);
-  L.push('');
-  L.push('- 方向：'+PROFILE.focus);
-  L.push('- 常驻：'+PROFILE.city+' · '+PROFILE.tz);
-  L.push('- 邮箱：'+PROFILE.email);
-  L.push('- 站点：https://ranxue1014.github.io/');
-  L.push('');
-  L.push('## 概述');
-  L.push('');
-  L.push('把「能不能做」拆成「怎么做、多少钱、什么时候上线」，然后盯着它真的上线。'+
-         (new Date().getFullYear()-PROFILE.since)+' 年数据领域经验，覆盖数据中台、智能 BI 与 AI Agent 落地，'+
-         '既能写可行性研究与技术需求书，也能自己写脚本把重复工作自动化。');
-  L.push('');
-  L.push('## 能力矩阵（自评：能独立交付的把握程度）');
-  L.push('');
-  SKILLS.forEach(s=>{ L.push('- **'+s.name+'** '+s.pct+'% — '+s.stack); L.push('  '+s.desc); });
-  L.push('');
-  L.push('## 项目经验全景（客户已脱敏，按行业归类）');
-  L.push('');
-  L.push('五年间真实交付与参与 '+PANO_TOTAL+'+ 个项目，覆盖 '+PANO_SECTORS.length+' 个行业（2021–2026）。下方项目档案为其中可公开深写的旗舰案例。');
-  L.push('');
-  PANO_SECTORS.forEach(s=>L.push('- '+s.name+'：'+s.n+' 个 — '+s.desc));
-  L.push('');
-  L.push('## 项目档案（客户已脱敏）');
-  L.push('');
-  PROJECTS.forEach(x=>{
-    L.push('### '+pad(x.idx)+'. '+x.title);
-    L.push('');
-    L.push(x.client+' · '+x.year+' · '+x.status+' · '+x.scaleLabel);
-    L.push('');
-    L.push('**背景**：'+x.background);
-    L.push('');
-    L.push('**做法**：'+x.approach);
-    L.push('');
-    L.push('**结果**：');
-    x.results.forEach(r=>L.push('- '+r));
-    L.push('');
-    L.push('**技术栈**：'+x.stack.join(' · '));
-    L.push('');
-  });
-  L.push('## 手记');
-  L.push('');
-  NOTES.forEach(n=>L.push('- '+n.date+' 《'+n.title+'》 '+n.read));
-  L.push('');
-  L.push('---');
-  L.push('');
-  L.push('导出自 ranxue.sh · '+new Date().toLocaleString('zh-CN',{hour12:false}));
-  L.push('客户名称、内部性能基线与经营数字已脱敏，不含任何客户内部数据、报价与调研数字。能力百分比为个人自评，不构成服务承诺。');
-  return L.join('\n');
-}
-function doResume(){ download('燃雪·郭超-简历.md',resumeText(),'text/markdown'); Sound.ok(); toast('简历已导出为 Markdown'); }
-$('#resumeBtn').addEventListener('click',doResume);
-$('#resumeBtn2').addEventListener('click',doResume);
-$('#railResume').addEventListener('click',doResume);
 $('#vcardBtn').addEventListener('click',()=>{
   const v=['BEGIN:VCARD','VERSION:3.0','N:郭;超;;;','FN:'+PROFILE.name,'NICKNAME:燃雪',
     'TITLE:'+PROFILE.role,'ORG:数据智能解决方案','EMAIL;type=INTERNET;type=WORK:'+PROFILE.email,
